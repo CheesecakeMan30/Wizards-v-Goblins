@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 8842715715645530087}
   - component: {fileID: 6105527800627019075}
   - component: {fileID: 7912151761544829346}
-  - component: {fileID: 6801324664635218197}
   - component: {fileID: 6666237843819686020}
   - component: {fileID: -1628067637672289695}
+  - component: {fileID: 996478757314010706}
   m_Layer: 0
   m_Name: wizard
-  m_TagString: Untagged
+  m_TagString: Wizard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,7 +125,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -141,33 +141,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.57, y: 1.01}
   m_EdgeRadius: 0
---- !u!50 &6801324664635218197
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8967263534254657053}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!95 &6666237843819686020
 Animator:
   serializedVersion: 7
@@ -197,10 +170,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8967263534254657053}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 218a465b5d9b5264eb595fdb8289dad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Wizard
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 5231932071421323424, guid: cf1613e35bcab52478d2a234e0f31bea, type: 3}
   fireRate: 2
+--- !u!114 &996478757314010706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8967263534254657053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 272593701f5ec9a459cc6e1b57066154, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Wizard
+  projectilePrefab: {fileID: 5231932071421323424, guid: cf1613e35bcab52478d2a234e0f31bea, type: 3}
+  fireRate: 2
+  maxHealth: 5
+  health: 5

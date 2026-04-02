@@ -8,6 +8,7 @@ TagManager:
   - Goblin
   - Projectile
   - Castle
+  - Wizard
   layers:
   - Default
   - TransparentFX

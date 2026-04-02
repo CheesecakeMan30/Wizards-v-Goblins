@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public float speed = 5f;
+    public float speed = 6f;
     public int damage = 1;
 
     void Update()
@@ -14,7 +14,13 @@ public class Projectile : MonoBehaviour
     {
         if (other.CompareTag("Goblin"))
         {
-            other.GetComponent<Goblin>().TakeDamage(damage);
+            Goblin goblin = other.GetComponent<Goblin>();
+
+            if (goblin != null)
+            {
+                goblin.TakeDamage(damage);
+            }
+
             Destroy(gameObject);
         }
     }

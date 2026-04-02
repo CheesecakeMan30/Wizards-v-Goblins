@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Wizard : MonoBehaviour
+public class WizardShoot : MonoBehaviour
 {
     public GameObject projectilePrefab;
     public float fireRate = 2f;
