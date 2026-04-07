@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Castle : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class Castle : MonoBehaviour
     {
         Debug.Log("Game Over");
         GameManager.instance.gameOver = true;
+        SceneManager.LoadScene("End Screen");
         Time.timeScale = 0;
     }
     }
