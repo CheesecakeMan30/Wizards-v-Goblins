@@ -12,78 +12,71 @@ public class WaveManager : MonoBehaviour
         StartCoroutine(WaveLoop());
     }
 
-    IEnumerator WaveLoop()
+   IEnumerator WaveLoop()
+{
+    while (!GameManager.instance.gameOver)
     {
-        while (!GameManager.instance.gameOver)
+        int goblinsToSpawn = 3 + currentWave * 2;
+        float spawnDelay = Mathf.Max(0.3f, 1.5f - currentWave * 0.1f);
+
+        AdjustGoblinWeights();
+
+        for (int i = 0; i < goblinsToSpawn; i++)
         {
-            // Waves 1–2 → 5 goblins
-            if (currentWave <= 2)
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    spawner.SpawnGoblin();
-                    yield return new WaitForSeconds(1.5f);
-                }
-            }
-            // Waves 3–4 → 6 goblins
-            else if (currentWave <= 4)
-            {
-                for (int i = 0; i < 6; i++)
-                {
-                    spawner.SpawnGoblin();
-                    yield return new WaitForSeconds(1.3f);
-                }
-            }
-            // Waves 5–6 → 7 goblins
-            else if (currentWave <= 6)
-            {
-                for (int i = 0; i < 7; i++)
-                {
-                    spawner.SpawnGoblin();
-                    yield return new WaitForSeconds(1.1f);
-                }
-            }
-            // Waves 7–8 → 8 goblins
-            else if (currentWave <= 8)
-            {
-                for (int i = 0; i < 8; i++)
-                {
-                    spawner.SpawnGoblin();
-                    yield return new WaitForSeconds(0.9f);
-                }
-            }
-            // Waves 9–10 → 9 goblins
-            else if (currentWave <= 10)
-            {
-                for (int i = 0; i < 9; i++)
-                {
-                    spawner.SpawnGoblin();
-                    yield return new WaitForSeconds(0.8f);
-                }
-            }
-            // Waves 11+ scale forever
-            else
-            {
-                int goblins = 10 + (currentWave / 2);
-
-                for (int i = 0; i < goblins; i++)
-                {
-                    spawner.SpawnGoblin();
-                    yield return new WaitForSeconds(0.6f);
-                }
-            }
-
-            // Wait until all goblins are dead
-            while (GameManager.instance.goblinsAlive > 0)
-            {
-                yield return null;
-            }
-
-            // Next wave
-            currentWave++;
-            GameManager.instance.wave = currentWave;
-
-            yield return new WaitForSeconds(2f);
+            spawner.SpawnGoblin();
+            yield return new WaitForSeconds(spawnDelay);
         }
+
+        while (GameManager.instance.goblinsAlive > 0)
+        {
+            yield return null;
+        }
+
+        currentWave++;
+        GameManager.instance.wave = currentWave;
+
+        yield return new WaitForSeconds(2f);
     }
+}
+
+  void AdjustGoblinWeights()
+{
+
+    if (currentWave < 5)
+    {
+        spawner.goblinTypes[0].weight = 90; // weak
+        spawner.goblinTypes[1].weight = 10; // mid
+        spawner.goblinTypes[2].weight = 0;  // strong locked
+    }
+    else if (currentWave < 10)
+    {
+        spawner.goblinTypes[0].weight = 70;
+        spawner.goblinTypes[1].weight = 30;
+        spawner.goblinTypes[2].weight = 0;
+    }
+    else if(currentWave < 15)
+    {
+        spawner.goblinTypes[0].weight = 40;
+        spawner.goblinTypes[1].weight = 40;
+        spawner.goblinTypes[2].weight = 20;
+    }
+    else if(currentWave < 20)
+    {
+        spawner.goblinTypes[0].weight = 15;
+        spawner.goblinTypes[1].weight = 40;
+        spawner.goblinTypes[2].weight = 55;
+    }
+    else if(currentWave < 25)
+    {
+        spawner.goblinTypes[0].weight = 0;
+        spawner.goblinTypes[1].weight = 30;
+        spawner.goblinTypes[2].weight = 70;
+    } 
+    else
+    {
+        spawner.goblinTypes[0].weight = 0;
+        spawner.goblinTypes[1].weight = 15;
+        spawner.goblinTypes[2].weight = 85;
+    }
+}
 }
