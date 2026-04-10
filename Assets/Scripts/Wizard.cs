@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Wizard : MonoBehaviour
 {
@@ -9,11 +10,18 @@ public class Wizard : MonoBehaviour
     public int health = 5;
 
     float fireTimer = 0f;
-    int enemiesInRange = 0;
+
+    List<GameObject> enemiesInRange = new List<GameObject>();
+
+    public bool canShoot = true;
 
     void Update()
     {
-        if (enemiesInRange > 0)
+        if (!canShoot) return;
+
+        enemiesInRange.RemoveAll(e => e == null);
+
+        if (enemiesInRange.Count > 0)
         {
             fireTimer += Time.deltaTime;
 
@@ -40,20 +48,30 @@ public class Wizard : MonoBehaviour
         }
     }
 
-    public void EnemyEntered()
+    public void EnemyEntered(GameObject enemy)
     {
-        enemiesInRange++;
+        if (!canShoot) return;
 
-        // Shoot immediately when first enemy enters
-        if (enemiesInRange == 1)
-        {
-            Shoot();
-            fireTimer = 0f;
-        }
+        if (!enemiesInRange.Contains(enemy))
+            enemiesInRange.Add(enemy);
     }
 
-    public void EnemyExited()
+    public void EnemyExited(GameObject enemy)
     {
-        enemiesInRange--;
+        enemiesInRange.Remove(enemy);
+    }
+
+    // 🔥 NEW: force detect enemies already inside
+    public void DetectExistingEnemies()
+    {
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 5f); // adjust radius if needed
+
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("Goblin"))
+            {
+                EnemyEntered(hit.gameObject);
+            }
+        }
     }
 }

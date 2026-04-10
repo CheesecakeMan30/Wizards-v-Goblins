@@ -2,26 +2,36 @@ using UnityEngine;
 
 public class WizardDetection : MonoBehaviour
 {
-    Wizard wizard;
+    private Wizard wizard;
 
-    void Start()
+    void Awake()
     {
+        // 🔥 More reliable than Start
         wizard = GetComponentInParent<Wizard>();
+
+        if (wizard == null)
+        {
+            Debug.LogError("WizardDetection could not find Wizard!");
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (wizard == null) return;
+
         if (other.CompareTag("Goblin"))
         {
-            wizard.EnemyEntered();
+            wizard.EnemyEntered(other.gameObject);
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
+        if (wizard == null) return;
+
         if (other.CompareTag("Goblin"))
         {
-            wizard.EnemyExited();
+            wizard.EnemyExited(other.gameObject);
         }
     }
 }

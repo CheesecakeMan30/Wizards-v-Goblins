@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Goblin : MonoBehaviour
+public class GoblinMovement : MonoBehaviour
 {
     public float speed = 1.5f;
 

@@ -3,7 +3,10 @@ using UnityEngine;
 public class WizardShoot : MonoBehaviour
 {
     public GameObject projectilePrefab;
-    public float fireRate = 2f;
+
+    public float fireRate = 1f;
+    public Transform firePoint; // where projectile spawns
+
     private float timer;
 
     void Update()
@@ -13,12 +16,16 @@ public class WizardShoot : MonoBehaviour
         if (timer >= fireRate)
         {
             Shoot();
-            timer = 0;
+            timer = 0f;
         }
     }
 
     void Shoot()
     {
-        Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        if (projectilePrefab == null) return;
+
+        Vector3 spawnPos = firePoint != null ? firePoint.position : transform.position;
+
+        Instantiate(projectilePrefab, spawnPos, Quaternion.identity);
     }
 }
