@@ -17,15 +17,10 @@ public class WizardPoster : MonoBehaviour
         3f, 1.75f, 0.5f, -1f, -2.25f, -3.5f
     };
 
-    [Header("Placement")]
-    public float shootDelay = 0.2f;
-
     private GameObject draggedInstance;
     private bool isDragging = false;
     private SpriteRenderer draggedSprite;
     private Collider2D draggedCollider;
-    private Wizard shootScript;
-    private Collider2D detectionCollider;
 
     void OnMouseDown()
     {
@@ -36,28 +31,14 @@ public class WizardPoster : MonoBehaviour
 
         draggedSprite = draggedInstance.GetComponent<SpriteRenderer>();
         draggedCollider = draggedInstance.GetComponent<Collider2D>();
-        shootScript = draggedInstance.GetComponent<Wizard>();
-
-        // ✅ FIX: get detection AFTER instantiate
-        WizardDetection detection = draggedInstance.GetComponentInChildren<WizardDetection>();
-        if (detection != null)
-            detectionCollider = detection.GetComponent<Collider2D>();
 
         // 👻 Ghost look
         if (draggedSprite != null)
             draggedSprite.color = new Color(1f, 1f, 1f, 0.5f);
 
-        // 🚫 Disable body collider
+        // 🚫 Disable collider while dragging
         if (draggedCollider != null)
             draggedCollider.enabled = false;
-
-        // 🚫 Disable detection collider (prevents shooting completely)
-        if (detectionCollider != null)
-            detectionCollider.enabled = false;
-
-        // 🚫 Disable shooting via flag (BEST METHOD)
-        if (shootScript != null)
-            shootScript.canShoot = false;
 
         isDragging = true;
     }
@@ -75,10 +56,9 @@ public class WizardPoster : MonoBehaviour
 
             if (draggedSprite != null)
             {
-                if (valid)
-                    draggedSprite.color = new Color(0f, 1f, 0f, 0.6f);
-                else
-                    draggedSprite.color = new Color(1f, 0f, 0f, 0.6f);
+                draggedSprite.color = valid
+                    ? new Color(0f, 1f, 0f, 0.6f)
+                    : new Color(1f, 0f, 0f, 0.6f);
             }
         }
     }
@@ -102,18 +82,6 @@ public class WizardPoster : MonoBehaviour
             // Enable collider AFTER placement
             if (draggedCollider != null)
                 draggedCollider.enabled = true;
-
-            // Re-enable detection AFTER placement
-            if (detectionCollider != null)
-                detectionCollider.enabled = true;
-
-            // 🔥 FORCE detection immediately
-            if (shootScript != null)
-                shootScript.DetectExistingEnemies();
-
-            // ⏱ Start shooting after delay
-            if (shootScript != null)
-                StartCoroutine(EnableShootingAfterDelay());
         }
         else
         {
@@ -121,14 +89,6 @@ public class WizardPoster : MonoBehaviour
             GameManager.instance.UpdateMoneyUI();
             Destroy(draggedInstance);
         }
-    }
-
-    System.Collections.IEnumerator EnableShootingAfterDelay()
-    {
-        yield return new WaitForSeconds(shootDelay);
-
-        if (shootScript != null)
-            shootScript.canShoot = true;
     }
 
     Vector3 GetMouseWorldPos()

@@ -9,40 +9,34 @@ public class Projectile : MonoBehaviour
     public float spinSpeed = 720f;
 
     public bool knockback = false;
-    public float knockbackForce = 200f;
+    public float knockbackForce = 3f;     // 🔥 changed (smaller, controlled)
+    public float knockbackDuration = 0.3f; // 🔥 NEW
 
     void Update()
     {
-    transform.position += Vector3.right * speed * Time.deltaTime;
+        transform.position += Vector3.right * speed * Time.deltaTime;
 
-    if (spin)
-    {
-        transform.Rotate(0, 0, spinSpeed * Time.deltaTime);
+        if (spin)
+        {
+            transform.Rotate(0, 0, spinSpeed * Time.deltaTime);
+        }
     }
-    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Goblin"))
         {
-            // Damage
             var goblin = other.GetComponent<GoblinMovement>();
-        if (goblin != null)
-        {
-        goblin.TakeDamage(damage);
-        }
 
-            // Knockback (wind wizard)
-            if (knockback)
+            if (goblin != null)
             {
-                Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
-                if (rb != null)
+                // ✅ Damage
+                goblin.TakeDamage(damage);
+
+                // ✅ NEW knockback system
+                if (knockback)
                 {
-                    rb.AddForce(Vector2.right * knockbackForce);
-                }
-                else
-                {
-                    // fallback if no rigidbody
-                    other.transform.position += Vector3.right * 0.5f;
+                    goblin.ApplyKnockback(knockbackForce, knockbackDuration);
                 }
             }
 

@@ -191,10 +191,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 272593701f5ec9a459cc6e1b57066154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Wizard
-  projectilePrefab: {fileID: 6926391885702802426, guid: e45727a390975e54499be2399e6c94cd, type: 3}
-  fireRate: 1
+  projectilePrefab: {fileID: 7629765311062125197, guid: 4dfa66ca244fb6c4eb6eaf6b69eef5dc, type: 3}
+  fireRate: 5
   maxHealth: 7
   health: 7
+  detectionRange: 10
+  shootStartX: 5
 --- !u!1001 &8087030136712074920
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -247,7 +249,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: DetectionArea
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4623402847381395740, guid: 35b08cfa17922d145930e70018764da4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

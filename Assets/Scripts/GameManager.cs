@@ -4,7 +4,9 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+
     public TextMeshProUGUI moneyText;
+    public GameObject waveCompleteUI; // ✅ FIXED name
 
     public int goblinsKilled = 0;
     public int goblinsAlive = 0;
@@ -17,10 +19,10 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
-       void Start()
-{
-    UpdateMoneyUI();
-}
+    void Start()
+    {
+        UpdateMoneyUI();
+    }
 
     public void GoblinSpawned()
     {
@@ -31,22 +33,41 @@ public class GameManager : MonoBehaviour
     {
         goblinsKilled++;
         goblinsAlive--;
+        money += 25;
+        UpdateMoneyUI();
+
     }
 
     public void UpdateMoneyUI()
-{
-    moneyText.text = "$" + money.ToString();
-}
+    {
+        moneyText.text = "$" + money.ToString();
+    }
 
     public bool SpendMoney(int amount)
-{
-    if (money >= amount)
+    {
+        if (money >= amount)
+        {
+            money -= amount;
+            UpdateMoneyUI();
+            return true;
+        }
+        return false;
+    }
+
+    public void LoseMoney(int amount)
     {
         money -= amount;
+        if (money < 0) money = 0;
         UpdateMoneyUI();
-        return true;
     }
-    return false;
-}
 
+    public void ClearProjectiles()
+    {
+        GameObject[] projectiles = GameObject.FindGameObjectsWithTag("Projectile");
+
+        foreach (GameObject p in projectiles)
+        {
+            Destroy(p);
+        }
+    }
 }

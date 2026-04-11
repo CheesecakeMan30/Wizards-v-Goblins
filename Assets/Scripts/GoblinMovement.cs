@@ -16,9 +16,12 @@ public class GoblinMovement : MonoBehaviour
     Wizard targetWizard;
     HealthBar healthBar;
 
+    // 🔥 NEW KNOCKBACK SYSTEM
+    private float knockbackTimer = 0f;
+    private float knockbackForce = 0f;
+
     void Start()
     {
-        // Find health bar
         healthBar = GetComponentInChildren<HealthBar>();
 
         if (healthBar != null)
@@ -29,9 +32,16 @@ public class GoblinMovement : MonoBehaviour
 
     void Update()
     {
+        // 🔥 HANDLE KNOCKBACK FIRST
+        if (knockbackTimer > 0)
+        {
+            transform.Translate(Vector2.right * knockbackForce * Time.deltaTime);
+            knockbackTimer -= Time.deltaTime;
+            return;
+        }
+
         if (attacking)
         {
-            // If wizard died, resume walking
             if (targetWizard == null)
             {
                 attacking = false;
@@ -48,9 +58,15 @@ public class GoblinMovement : MonoBehaviour
         }
         else
         {
-            // Move left
             transform.Translate(Vector2.left * speed * Time.deltaTime);
         }
+    }
+
+    // 🔥 CALL THIS FROM WIND PROJECTILE
+    public void ApplyKnockback(float force, float duration)
+    {
+        knockbackForce = force;
+        knockbackTimer = duration;
     }
 
     void OnTriggerEnter2D(Collider2D other)

@@ -9,29 +9,52 @@ public class Wizard : MonoBehaviour
     public int maxHealth = 5;
     public int health = 5;
 
+    public float detectionRange = 8f;   // how far wizard can see
+    public float shootStartX = 4f;      // lane start (your red line)
+
     float fireTimer = 0f;
-
-    List<GameObject> enemiesInRange = new List<GameObject>();
-
-    public bool canShoot = true;
 
     void Update()
     {
-        if (!canShoot) return;
+        if (!CanShoot()) return;
 
-        enemiesInRange.RemoveAll(e => e == null);
+        fireTimer += Time.deltaTime;
 
-        if (enemiesInRange.Count > 0)
+        if (fireTimer >= fireRate)
         {
-            fireTimer += Time.deltaTime;
-
-            if (fireTimer >= fireRate)
-            {
-                Shoot();
-                fireTimer = 0f;
-            }
+            Shoot();
+            fireTimer = 0f;
         }
     }
+
+    bool CanShoot()
+{
+    GameObject[] goblins = GameObject.FindGameObjectsWithTag("Goblin");
+
+    foreach (GameObject g in goblins)
+    {
+        if (g == null) continue;
+
+        float dx = g.transform.position.x - transform.position.x;
+        float dy = Mathf.Abs(g.transform.position.y - transform.position.y);
+
+        // 🔥 MUST be same lane (VERY IMPORTANT)
+        if (dy > 0.5f) continue;
+
+        // 🔥 MUST be in front
+        if (dx <= 0) continue;
+
+        // 🔥 MUST be within range
+        if (dx > detectionRange) continue;
+
+        // 🔥 MUST have reached lane start
+        if (g.transform.position.x > shootStartX) continue;
+
+        return true;
+    }
+
+    return false;
+}
 
     void Shoot()
     {
@@ -45,33 +68,6 @@ public class Wizard : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
-        }
-    }
-
-    public void EnemyEntered(GameObject enemy)
-    {
-        if (!canShoot) return;
-
-        if (!enemiesInRange.Contains(enemy))
-            enemiesInRange.Add(enemy);
-    }
-
-    public void EnemyExited(GameObject enemy)
-    {
-        enemiesInRange.Remove(enemy);
-    }
-
-    // 🔥 NEW: force detect enemies already inside
-    public void DetectExistingEnemies()
-    {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 5f); // adjust radius if needed
-
-        foreach (var hit in hits)
-        {
-            if (hit.CompareTag("Goblin"))
-            {
-                EnemyEntered(hit.gameObject);
-            }
         }
     }
 }

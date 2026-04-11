@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1177977621845813356}
   m_Layer: 0
   m_Name: axe_0
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,12 +105,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34dbbd00051cce64bafed04925ef58ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
-  speed: 5
-  damage: 1
+  speed: 4
+  damage: 4
   spin: 1
-  spinSpeed: 720
+  spinSpeed: 1080
   knockback: 0
   knockbackForce: 200
+  knockbackDuration: 0.3
 --- !u!61 &1177977621845813356
 BoxCollider2D:
   m_ObjectHideFlags: 0

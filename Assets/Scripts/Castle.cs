@@ -15,7 +15,10 @@ public class Castle : MonoBehaviour
     public void TakeDamage(int dmg)
     {
         health -= dmg;
-        Debug.Log("Castle Health: " + health);
+        GameManager.instance.LoseMoney(75); // lose money when castle takes damage
+        GameManager.instance.UpdateMoneyUI();
+
+
 
         if (health <= 0)
     {
