@@ -8,8 +8,16 @@ public class WaveManager : MonoBehaviour
     public Spawner spawner;
 
     int currentWave = 1;
-
     bool waitingForNextWave = false;
+
+    // 🔥 Lane system
+    public float[] laneY = new float[]
+    {
+        3f, 1.75f, 0.5f, -1f, -2.25f, -3.5f
+    };
+
+    public float minLaneSpacing = 1.2f;   // distance between goblins in same lane
+    public float spawnX = 10f;            // spawn position X
 
     void Awake()
     {
@@ -26,41 +34,94 @@ public class WaveManager : MonoBehaviour
         while (!GameManager.instance.gameOver)
         {
             int goblinsToSpawn = 3 + currentWave * 2;
-            float spawnDelay = Mathf.Max(0.3f, 1.5f - currentWave * 0.1f);
+            float spawnDelay = Mathf.Max(0.4f, 1.5f - currentWave * 0.08f);
 
             AdjustGoblinWeights();
 
-            //  Spawn wave
             for (int i = 0; i < goblinsToSpawn; i++)
             {
-                spawner.SpawnGoblin();
-                yield return new WaitForSeconds(spawnDelay);
+                yield return StartCoroutine(SpawnInLane(spawnDelay));
             }
 
-            //  Wait until all goblins are dead
-         while (GameObject.FindGameObjectsWithTag("Goblin").Length > 0)
+            // Wait until all goblins are dead
+            while (GameObject.FindGameObjectsWithTag("Goblin").Length > 0)
             {
-                 yield return null;
+                yield return null;
             }
 
-            //  Wave complete
             currentWave++;
             GameManager.instance.wave = currentWave;
 
-            // Clear all projectiles FIRST
             GameManager.instance.ClearProjectiles();
 
-            // Then pause + show UI
             GamePause.instance.PauseGame();
             GameManager.instance.waveCompleteUI.SetActive(true);
 
-            //  WAIT for player input
             waitingForNextWave = true;
             yield return new WaitUntil(() => waitingForNextWave == false);
         }
     }
 
-    //  Called by button
+    // 🔥 NEW: lane-based spawn system
+    IEnumerator SpawnInLane(float delay)
+    {
+        bool spawned = false;
+
+        while (!spawned)
+        {
+            int laneIndex = Random.Range(0, laneY.Length);
+            float lane = laneY[laneIndex];
+
+            if (IsLaneClear(lane))
+            {
+                SpawnGoblinInLane(lane);
+                spawned = true;
+            }
+
+            if (!spawned)
+                yield return null;
+        }
+
+        yield return new WaitForSeconds(delay);
+    }
+
+    // 🔥 Check if lane has space near spawn
+    bool IsLaneClear(float laneYPos)
+    {
+        GameObject[] goblins = GameObject.FindGameObjectsWithTag("Goblin");
+
+        foreach (GameObject g in goblins)
+        {
+            if (g == null) continue;
+
+            float dy = Mathf.Abs(g.transform.position.y - laneYPos);
+
+            // same lane
+            if (dy < 0.3f)
+            {
+                // too close to spawn area
+                if (g.transform.position.x > spawnX - minLaneSpacing)
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    // 🔥 Force spawn in specific lane
+    void SpawnGoblinInLane(float laneYPos)
+    {
+        GameObject goblinPrefab = spawner.GetRandomGoblin(); // make this public
+
+        Vector2 spawnPos = new Vector2(spawnX, laneYPos);
+
+        Instantiate(goblinPrefab, spawnPos, Quaternion.identity);
+
+        GameManager.instance.GoblinSpawned();
+    }
+
     public void ContinueNextWave()
     {
         GameManager.instance.waveCompleteUI.SetActive(false);

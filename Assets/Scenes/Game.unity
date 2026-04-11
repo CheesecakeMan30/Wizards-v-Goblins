@@ -903,6 +903,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
   spawner: {fileID: 1826299562}
+  laneY:
+  - 3
+  - 1.75
+  - 0.5
+  - -1
+  - -2.25
+  - -3.5
+  minLaneSpacing: 1.2
+  spawnX: 10
 --- !u!1 &1076677816
 GameObject:
   m_ObjectHideFlags: 0

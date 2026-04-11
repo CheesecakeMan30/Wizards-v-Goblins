@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3136301683895040747}
   - component: {fileID: 4707584432441681915}
   - component: {fileID: 7874712150172034330}
-  - component: {fileID: 7447900549527967417}
   - component: {fileID: 8695266890522803472}
   m_Layer: 0
   m_Name: LumberjackWizard
@@ -164,21 +163,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7447900549527967417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 648485834748891055}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 218a465b5d9b5264eb595fdb8289dad8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Wizard
-  projectilePrefab: {fileID: 6926391885702802426, guid: e45727a390975e54499be2399e6c94cd, type: 3}
-  fireRate: 1
-  firePoint: {fileID: 0}
 --- !u!114 &8695266890522803472
 MonoBehaviour:
   m_ObjectHideFlags: 0

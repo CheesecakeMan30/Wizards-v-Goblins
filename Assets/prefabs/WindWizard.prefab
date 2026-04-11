@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6995499357907689770}
   - component: {fileID: 1344378039983272620}
   - component: {fileID: 1502286130761716742}
-  - component: {fileID: 1473505850189213043}
   - component: {fileID: 6625551427798007031}
   m_Layer: 0
   m_Name: WindWizard
@@ -164,21 +163,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1473505850189213043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2119889885947634155}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 218a465b5d9b5264eb595fdb8289dad8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Wizard
-  projectilePrefab: {fileID: 6926391885702802426, guid: e45727a390975e54499be2399e6c94cd, type: 3}
-  fireRate: 1
-  firePoint: {fileID: 0}
 --- !u!114 &6625551427798007031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,11 +176,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Wizard
   projectilePrefab: {fileID: 7629765311062125197, guid: 4dfa66ca244fb6c4eb6eaf6b69eef5dc, type: 3}
-  fireRate: 5
+  fireRate: 4.5
   maxHealth: 15
   health: 15
-  detectionRange: 5
-  shootStartX: 8
+  detectionRange: 9
+  shootStartX: 7
 --- !u!1001 &8087030136712074920
 PrefabInstance:
   m_ObjectHideFlags: 0

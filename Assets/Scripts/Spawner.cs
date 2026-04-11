@@ -28,7 +28,7 @@ public class Spawner : MonoBehaviour
         GameManager.instance.GoblinSpawned();
     }
 
-    GameObject GetRandomGoblin()
+    public GameObject GetRandomGoblin()
     {
         int totalWeight = 0;
 

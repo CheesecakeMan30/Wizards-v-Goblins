@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 9141374109078858014}
   - component: {fileID: 4668063927527562412}
   - component: {fileID: 5054664380819424890}
-  - component: {fileID: 4584200051491639243}
   - component: {fileID: 5188854527855243487}
   m_Layer: 0
   m_Name: FireWizard
@@ -164,21 +163,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4584200051491639243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6272291682542002324}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 218a465b5d9b5264eb595fdb8289dad8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Wizard
-  projectilePrefab: {fileID: 5231932071421323424, guid: cf1613e35bcab52478d2a234e0f31bea, type: 3}
-  fireRate: 2
-  firePoint: {fileID: 0}
 --- !u!114 &5188854527855243487
 MonoBehaviour:
   m_ObjectHideFlags: 0
