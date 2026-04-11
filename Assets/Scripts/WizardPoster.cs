@@ -21,30 +21,25 @@ public class WizardPoster : MonoBehaviour
     private bool isDragging = false;
     private SpriteRenderer draggedSprite;
     private Collider2D draggedCollider;
+    private SpriteRenderer sr;
 
-    void OnMouseDown()
+    void Start()
     {
-        if (!GameManager.instance.SpendMoney(cost))
-            return;
-
-        draggedInstance = Instantiate(wizardPrefab, GetMouseWorldPos(), Quaternion.identity);
-
-        draggedSprite = draggedInstance.GetComponent<SpriteRenderer>();
-        draggedCollider = draggedInstance.GetComponent<Collider2D>();
-
-        // 👻 Ghost look
-        if (draggedSprite != null)
-            draggedSprite.color = new Color(1f, 1f, 1f, 0.5f);
-
-        // 🚫 Disable collider while dragging
-        if (draggedCollider != null)
-            draggedCollider.enabled = false;
-
-        isDragging = true;
+        sr = GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
+        // 🔥 Grey out when not affordable (ONLY when not dragging)
+        if (!isDragging && sr != null)
+        {
+            if (GameManager.instance.money < cost)
+                sr.color = new Color(0.5f, 0.5f, 0.5f, 1f);
+            else
+                sr.color = Color.white;
+        }
+
+        // 🔥 Drag logic
         if (isDragging && draggedInstance != null)
         {
             Vector3 mousePos = GetMouseWorldPos();
@@ -63,6 +58,25 @@ public class WizardPoster : MonoBehaviour
         }
     }
 
+    void OnMouseDown()
+    {
+        if (!GameManager.instance.SpendMoney(cost))
+            return;
+
+        draggedInstance = Instantiate(wizardPrefab, GetMouseWorldPos(), Quaternion.identity);
+
+        draggedSprite = draggedInstance.GetComponent<SpriteRenderer>();
+        draggedCollider = draggedInstance.GetComponent<Collider2D>();
+
+        if (draggedSprite != null)
+            draggedSprite.color = new Color(1f, 1f, 1f, 0.5f);
+
+        if (draggedCollider != null)
+            draggedCollider.enabled = false;
+
+        isDragging = true;
+    }
+
     void OnMouseUp()
     {
         if (!isDragging || draggedInstance == null) return;
@@ -75,11 +89,9 @@ public class WizardPoster : MonoBehaviour
         {
             draggedInstance.transform.position = snappedPos;
 
-            // Restore visuals
             if (draggedSprite != null)
                 draggedSprite.color = Color.white;
 
-            // Enable collider AFTER placement
             if (draggedCollider != null)
                 draggedCollider.enabled = true;
         }

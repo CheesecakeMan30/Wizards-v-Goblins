@@ -254,10 +254,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Goblin
   speed: 1
-  maxHealth: 5
-  health: 5
+  maxHealth: 6
+  health: 6
   damage: 3
-  attackRate: 1.5
+  attackRate: 3
 --- !u!1001 &5119843511912478493
 PrefabInstance:
   m_ObjectHideFlags: 0

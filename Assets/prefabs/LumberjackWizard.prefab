@@ -193,10 +193,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Wizard
   projectilePrefab: {fileID: 6926391885702802426, guid: e45727a390975e54499be2399e6c94cd, type: 3}
   fireRate: 4
-  maxHealth: 7
-  health: 7
+  maxHealth: 8
+  health: 8
   detectionRange: 10
-  shootStartX: 5
+  shootStartX: 8
 --- !u!1001 &525477593528936545
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
   speed: 5
-  damage: 1
+  damage: 5
   spin: 0
   spinSpeed: 720
   knockback: 1

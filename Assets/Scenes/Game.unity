@@ -436,7 +436,7 @@ MonoBehaviour:
   goblinsAlive: 0
   wave: 1
   gameOver: 0
-  money: 5000
+  money: 800
 --- !u!4 &382469482
 Transform:
   m_ObjectHideFlags: 0

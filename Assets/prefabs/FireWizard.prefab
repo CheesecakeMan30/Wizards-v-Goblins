@@ -196,7 +196,7 @@ MonoBehaviour:
   maxHealth: 5
   health: 5
   detectionRange: 20
-  shootStartX: 5
+  shootStartX: 8
 --- !u!1001 &5389650090622005361
 PrefabInstance:
   m_ObjectHideFlags: 0
