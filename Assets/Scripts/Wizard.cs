@@ -9,10 +9,17 @@ public class Wizard : MonoBehaviour
     public int maxHealth = 5;
     public int health = 5;
     public int cost; 
-    public float detectionRange = 8f;   // how far wizard can see
-    public float shootStartX = 4f;      // lane start (your red line)
+    public float detectionRange = 8f;
+    public float shootStartX = 4f;
 
     float fireTimer = 0f;
+
+    Animator anim; //  NEW
+
+    void Start()
+    {
+        anim = GetComponent<Animator>(); //  NEW
+    }
 
     void Update()
     {
@@ -28,39 +35,41 @@ public class Wizard : MonoBehaviour
     }
 
     bool CanShoot()
-{
-    GameObject[] goblins = GameObject.FindGameObjectsWithTag("Goblin");
-
-    foreach (GameObject g in goblins)
     {
-        if (g == null) continue;
+        GameObject[] goblins = GameObject.FindGameObjectsWithTag("Goblin");
 
-        float dx = g.transform.position.x - transform.position.x;
-        float dy = Mathf.Abs(g.transform.position.y - transform.position.y);
+        foreach (GameObject g in goblins)
+        {
+            if (g == null) continue;
 
-        // 🔥 MUST be same lane (VERY IMPORTANT)
-        if (dy > 0.5f) continue;
+            float dx = g.transform.position.x - transform.position.x;
+            float dy = Mathf.Abs(g.transform.position.y - transform.position.y);
 
-        // 🔥 MUST be in front
-        if (dx <= 0) continue;
+            if (dy > 0.5f) continue;
+            if (dx <= 0) continue;
+            if (dx > detectionRange) continue;
+            if (g.transform.position.x > shootStartX) continue;
 
-        // 🔥 MUST be within range
-        if (dx > detectionRange) continue;
+            return true;
+        }
 
-        // 🔥 MUST have reached lane start
-        if (g.transform.position.x > shootStartX) continue;
-
-        return true;
+        return false;
     }
-
-    return false;
-}
 
     void Shoot()
     {
-        Instantiate(projectilePrefab, transform.position + Vector3.right * 0.5f, Quaternion.identity);
+    // PLAY ANIMATION
+    if (anim != null)
+        anim.SetTrigger("Shoot");
+
+    // DELAY PROJECTILE
+    Invoke(nameof(SpawnProjectile), 0.35f); // tweak this value
     }
 
+void SpawnProjectile()
+{
+    Instantiate(projectilePrefab, transform.position + Vector3.right * 0.5f, Quaternion.identity);
+}
     public void TakeDamage(int dmg)
     {
         health -= dmg;
@@ -73,6 +82,6 @@ public class Wizard : MonoBehaviour
 
     void OnMouseDown()
     {
-    GameManager.instance.SelectWizard(gameObject);
+        GameManager.instance.SelectWizard(gameObject);
     }
 }
