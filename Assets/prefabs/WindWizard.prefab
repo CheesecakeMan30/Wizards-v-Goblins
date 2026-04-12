@@ -83,7 +83,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 8856475441347302244, guid: 62398af288b7da54c81f0785fd25de6f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -179,6 +179,7 @@ MonoBehaviour:
   fireRate: 4.5
   maxHealth: 15
   health: 15
+  cost: 0
   detectionRange: 9
   shootStartX: 7
 --- !u!1001 &8087030136712074920

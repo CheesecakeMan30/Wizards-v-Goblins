@@ -8,7 +8,7 @@ public class Wizard : MonoBehaviour
 
     public int maxHealth = 5;
     public int health = 5;
-
+    public int cost; 
     public float detectionRange = 8f;   // how far wizard can see
     public float shootStartX = 4f;      // lane start (your red line)
 
@@ -69,5 +69,10 @@ public class Wizard : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    void OnMouseDown()
+    {
+    GameManager.instance.SelectWizard(gameObject);
     }
 }

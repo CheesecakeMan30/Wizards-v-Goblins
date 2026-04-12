@@ -8,8 +8,11 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI moneyText;
     public GameObject waveCompleteUI;
+    public GameObject winScreen;
 
-    public GameObject winScreen; // ✅ NEW
+    public GameObject sellButton; // NEW
+
+    private GameObject selectedWizard; //  NEW
 
     public int goblinsKilled = 0;
     public int goblinsAlive = 0;
@@ -25,6 +28,9 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         UpdateMoneyUI();
+
+        if (sellButton != null)
+            sellButton.SetActive(false);
     }
 
     public void GoblinSpawned()
@@ -73,21 +79,52 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // ✅ SHOW WIN SCREEN
+    // SELECT WIZARD
+    public void SelectWizard(GameObject wizard)
+    {
+        // only allow between rounds
+        if (Time.timeScale > 0f) return;
+
+        selectedWizard = wizard;
+
+        if (sellButton != null)
+            sellButton.SetActive(true);
+    }
+
+    // SELL WIZARD
+    public void SellSelectedWizard()
+    {
+        if (selectedWizard == null) return;
+
+        Wizard wizardScript = selectedWizard.GetComponent<Wizard>();
+
+        if (wizardScript != null)
+        {
+            int refund = Mathf.RoundToInt(wizardScript.cost * 0.5f);
+            money += refund;
+            UpdateMoneyUI();
+        }
+
+        Destroy(selectedWizard);
+        selectedWizard = null;
+
+        if (sellButton != null)
+            sellButton.SetActive(false);
+    }
+
+    // WIN SCREEN
     public void ShowWinScreen()
     {
         GamePause.instance.PauseGame();
         winScreen.SetActive(true);
     }
 
-    // ✅ CONTINUE PLAYING
     public void ContinueAfterWin()
     {
         winScreen.SetActive(false);
         GamePause.instance.ResumeGame();
     }
 
-    // ✅ RESTART GAME
     public void RestartGame()
     {
         Time.timeScale = 1f;

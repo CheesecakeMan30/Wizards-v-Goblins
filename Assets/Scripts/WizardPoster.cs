@@ -58,24 +58,27 @@ public class WizardPoster : MonoBehaviour
         }
     }
 
-    void OnMouseDown()
-    {
-        if (!GameManager.instance.SpendMoney(cost))
-            return;
+void OnMouseDown()
+{
+    if (!GameManager.instance.SpendMoney(cost))
+        return;
 
-        draggedInstance = Instantiate(wizardPrefab, GetMouseWorldPos(), Quaternion.identity);
+    draggedInstance = Instantiate(wizardPrefab, GetMouseWorldPos(), Quaternion.identity);
 
-        draggedSprite = draggedInstance.GetComponent<SpriteRenderer>();
-        draggedCollider = draggedInstance.GetComponent<Collider2D>();
+    // pass cost to wizard
+    draggedInstance.GetComponent<Wizard>().cost = cost;
 
-        if (draggedSprite != null)
-            draggedSprite.color = new Color(1f, 1f, 1f, 0.5f);
+    draggedSprite = draggedInstance.GetComponent<SpriteRenderer>();
+    draggedCollider = draggedInstance.GetComponent<Collider2D>();
 
-        if (draggedCollider != null)
-            draggedCollider.enabled = false;
+    if (draggedSprite != null)
+        draggedSprite.color = new Color(1f, 1f, 1f, 0.5f);
 
-        isDragging = true;
-    }
+    if (draggedCollider != null)
+        draggedCollider.enabled = false;
+
+    isDragging = true;
+}
 
     void OnMouseUp()
     {
