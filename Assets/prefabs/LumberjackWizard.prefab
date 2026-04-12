@@ -182,6 +182,7 @@ MonoBehaviour:
   cost: 0
   detectionRange: 10
   shootStartX: 8
+  attackDelay: 0.35
 --- !u!1001 &525477593528936545
 PrefabInstance:
   m_ObjectHideFlags: 0

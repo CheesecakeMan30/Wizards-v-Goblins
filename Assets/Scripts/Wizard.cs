@@ -8,17 +8,21 @@ public class Wizard : MonoBehaviour
 
     public int maxHealth = 5;
     public int health = 5;
-    public int cost; 
+    public int cost;
+
     public float detectionRange = 8f;
     public float shootStartX = 4f;
 
+    public float attackDelay = 0.15f; // ✅ different per wizard
+
     float fireTimer = 0f;
 
-    Animator anim; //  NEW
+    Animator anim;
+    bool isAttacking = false; // prevents spam
 
     void Start()
     {
-        anim = GetComponent<Animator>(); //  NEW
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -58,18 +62,31 @@ public class Wizard : MonoBehaviour
 
     void Shoot()
     {
-    // PLAY ANIMATION
-    if (anim != null)
-        anim.SetTrigger("Shoot");
+        if (isAttacking) return;
 
-    // DELAY PROJECTILE
-    Invoke(nameof(SpawnProjectile), 0.35f); // tweak this value
+        isAttacking = true;
+
+        if (anim != null)
+            anim.SetTrigger("Shoot");
+
+        // OPTION A (delay-based)
+        CancelInvoke(nameof(SpawnProjectile));
+        Invoke(nameof(SpawnProjectile), attackDelay);
+
+        // reset attack lock (match animation length)
+        Invoke(nameof(ResetAttack), 0.5f);
     }
 
-void SpawnProjectile()
-{
-    Instantiate(projectilePrefab, transform.position + Vector3.right * 0.5f, Quaternion.identity);
-}
+    void SpawnProjectile()
+    {
+        Instantiate(projectilePrefab, transform.position + Vector3.right * 0.5f, Quaternion.identity);
+    }
+
+    void ResetAttack()
+    {
+        isAttacking = false;
+    }
+
     public void TakeDamage(int dmg)
     {
         health -= dmg;
