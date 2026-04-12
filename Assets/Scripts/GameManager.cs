@@ -1,12 +1,15 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
     public TextMeshProUGUI moneyText;
-    public GameObject waveCompleteUI; // ✅ FIXED name
+    public GameObject waveCompleteUI;
+
+    public GameObject winScreen; // ✅ NEW
 
     public int goblinsKilled = 0;
     public int goblinsAlive = 0;
@@ -35,7 +38,6 @@ public class GameManager : MonoBehaviour
         goblinsAlive--;
         money += 25;
         UpdateMoneyUI();
-
     }
 
     public void UpdateMoneyUI()
@@ -69,5 +71,26 @@ public class GameManager : MonoBehaviour
         {
             Destroy(p);
         }
+    }
+
+    // ✅ SHOW WIN SCREEN
+    public void ShowWinScreen()
+    {
+        GamePause.instance.PauseGame();
+        winScreen.SetActive(true);
+    }
+
+    // ✅ CONTINUE PLAYING
+    public void ContinueAfterWin()
+    {
+        winScreen.SetActive(false);
+        GamePause.instance.ResumeGame();
+    }
+
+    // ✅ RESTART GAME
+    public void RestartGame()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

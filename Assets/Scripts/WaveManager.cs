@@ -10,14 +10,15 @@ public class WaveManager : MonoBehaviour
     int currentWave = 1;
     bool waitingForNextWave = false;
 
-    // 🔥 Lane system
+    public int winWave = 25; // ✅ NEW
+
     public float[] laneY = new float[]
     {
         3f, 1.75f, 0.5f, -1f, -2.25f, -3.5f
     };
 
-    public float minLaneSpacing = 1.2f;   // distance between goblins in same lane
-    public float spawnX = 10f;            // spawn position X
+    public float minLaneSpacing = 1.2f;
+    public float spawnX = 10f;
 
     void Awake()
     {
@@ -43,7 +44,6 @@ public class WaveManager : MonoBehaviour
                 yield return StartCoroutine(SpawnInLane(spawnDelay));
             }
 
-            // Wait until all goblins are dead
             while (GameObject.FindGameObjectsWithTag("Goblin").Length > 0)
             {
                 yield return null;
@@ -54,6 +54,18 @@ public class WaveManager : MonoBehaviour
 
             GameManager.instance.ClearProjectiles();
 
+            // ✅ CHECK FOR WIN
+            if (currentWave > winWave)
+            {
+                GameManager.instance.ShowWinScreen();
+
+                waitingForNextWave = true;
+                yield return new WaitUntil(() => waitingForNextWave == false);
+
+                continue; // go to next loop (wave 26+)
+            }
+
+            // NORMAL WAVE FLOW
             GamePause.instance.PauseGame();
             GameManager.instance.waveCompleteUI.SetActive(true);
 
@@ -62,7 +74,6 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    // 🔥 NEW: lane-based spawn system
     IEnumerator SpawnInLane(float delay)
     {
         bool spawned = false;
@@ -85,7 +96,6 @@ public class WaveManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
     }
 
-    // 🔥 Check if lane has space near spawn
     bool IsLaneClear(float laneYPos)
     {
         GameObject[] goblins = GameObject.FindGameObjectsWithTag("Goblin");
@@ -96,10 +106,8 @@ public class WaveManager : MonoBehaviour
 
             float dy = Mathf.Abs(g.transform.position.y - laneYPos);
 
-            // same lane
             if (dy < 0.3f)
             {
-                // too close to spawn area
                 if (g.transform.position.x > spawnX - minLaneSpacing)
                 {
                     return false;
@@ -110,14 +118,16 @@ public class WaveManager : MonoBehaviour
         return true;
     }
 
-    // 🔥 Force spawn in specific lane
     void SpawnGoblinInLane(float laneYPos)
     {
-        GameObject goblinPrefab = spawner.GetRandomGoblin(); // make this public
+        GameObject goblinPrefab = spawner.GetRandomGoblin();
 
         Vector2 spawnPos = new Vector2(spawnX, laneYPos);
 
-        Instantiate(goblinPrefab, spawnPos, Quaternion.identity);
+        GameObject goblin = Instantiate(goblinPrefab, spawnPos, Quaternion.identity);
+
+        // SET LANE
+        goblin.GetComponent<GoblinMovement>().laneY = laneYPos;
 
         GameManager.instance.GoblinSpawned();
     }
@@ -127,6 +137,12 @@ public class WaveManager : MonoBehaviour
         GameManager.instance.waveCompleteUI.SetActive(false);
         GamePause.instance.ResumeGame();
 
+        waitingForNextWave = false;
+    }
+
+    // ✅ NEW: used by WIN SCREEN
+    public void ContinueAfterWin()
+    {
         waitingForNextWave = false;
     }
 

@@ -16,7 +16,10 @@ public class GoblinMovement : MonoBehaviour
     Wizard targetWizard;
     HealthBar healthBar;
 
-    // 🔥 NEW KNOCKBACK SYSTEM
+    // ✅ LANE LOCK
+    public float laneY;
+
+    // 🔥 KNOCKBACK SYSTEM
     private float knockbackTimer = 0f;
     private float knockbackForce = 0f;
 
@@ -37,32 +40,36 @@ public class GoblinMovement : MonoBehaviour
         {
             transform.Translate(Vector2.right * knockbackForce * Time.deltaTime);
             knockbackTimer -= Time.deltaTime;
-            return;
         }
-
-        if (attacking)
+        else if (attacking)
         {
             if (targetWizard == null)
             {
                 attacking = false;
-                return;
             }
-
-            attackTimer += Time.deltaTime;
-
-            if (attackTimer >= attackRate)
+            else
             {
-                targetWizard.TakeDamage(damage);
-                attackTimer = 0f;
+                attackTimer += Time.deltaTime;
+
+                if (attackTimer >= attackRate)
+                {
+                    targetWizard.TakeDamage(damage);
+                    attackTimer = 0f;
+                }
             }
         }
         else
         {
             transform.Translate(Vector2.left * speed * Time.deltaTime);
         }
+
+        // ✅ FORCE BACK TO LANE EVERY FRAME
+        Vector3 pos = transform.position;
+        pos.y = laneY;
+        transform.position = pos;
     }
 
-    // 🔥 CALL THIS FROM WIND PROJECTILE
+    // 🔥 APPLY KNOCKBACK
     public void ApplyKnockback(float force, float duration)
     {
         knockbackForce = force;
