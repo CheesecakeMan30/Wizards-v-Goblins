@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     public int goblinsAlive = 0;
     public int wave = 1;
     public bool gameOver = false;
-    public int money = 500;
+    public int money = 2750;
 
     void Awake()
     {
@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
     {
         goblinsKilled++;
         goblinsAlive--;
-        money += 25;
+        money += 50;
         UpdateMoneyUI();
     }
 

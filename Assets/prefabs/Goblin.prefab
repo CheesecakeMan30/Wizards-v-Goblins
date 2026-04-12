@@ -203,9 +203,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7000e9f25d87df94dbcd9632ed472eaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Goblin
-  speed: 1.5
-  maxHealth: 10
-  health: 10
+  speed: 0.9
+  maxHealth: 15
+  health: 15
   damage: 10
   attackRate: 1
   laneY: 0

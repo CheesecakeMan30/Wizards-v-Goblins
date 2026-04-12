@@ -16,12 +16,15 @@ public class GoblinMovement : MonoBehaviour
     Wizard targetWizard;
     HealthBar healthBar;
 
-    // ✅ LANE LOCK
+    // LANE LOCK
     public float laneY;
 
-    // 🔥 KNOCKBACK SYSTEM
+    // KNOCKBACK SYSTEM
     private float knockbackTimer = 0f;
     private float knockbackForce = 0f;
+
+    // prevents double counting
+    private bool isDead = false;
 
     void Start()
     {
@@ -35,7 +38,7 @@ public class GoblinMovement : MonoBehaviour
 
     void Update()
     {
-        // 🔥 HANDLE KNOCKBACK FIRST
+        // HANDLE KNOCKBACK FIRST
         if (knockbackTimer > 0)
         {
             transform.Translate(Vector2.right * knockbackForce * Time.deltaTime);
@@ -63,13 +66,13 @@ public class GoblinMovement : MonoBehaviour
             transform.Translate(Vector2.left * speed * Time.deltaTime);
         }
 
-        // ✅ FORCE BACK TO LANE EVERY FRAME
+        // FORCE BACK TO LANE EVERY FRAME
         Vector3 pos = transform.position;
         pos.y = laneY;
         transform.position = pos;
     }
 
-    // 🔥 APPLY KNOCKBACK
+    // APPLY KNOCKBACK
     public void ApplyKnockback(float force, float duration)
     {
         knockbackForce = force;
@@ -78,6 +81,8 @@ public class GoblinMovement : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (isDead) return; 
+
         if (other.CompareTag("Wizard"))
         {
             attacking = true;
@@ -88,7 +93,6 @@ public class GoblinMovement : MonoBehaviour
         if (other.CompareTag("Castle"))
         {
             Castle.instance.TakeDamage(1);
-            GameManager.instance.GoblinKilled();
             Destroy(gameObject);
         }
 
@@ -101,6 +105,8 @@ public class GoblinMovement : MonoBehaviour
 
     public void TakeDamage(int dmg)
     {
+        if (isDead) return; // prevents multiple hits in same frame
+
         health -= dmg;
 
         if (healthBar != null)
@@ -110,6 +116,13 @@ public class GoblinMovement : MonoBehaviour
 
         if (health <= 0)
         {
+            isDead = true;
+
+            // disable collider immediately to stop extra hits
+            Collider2D col = GetComponent<Collider2D>();
+            if (col != null)
+                col.enabled = false;
+
             GameManager.instance.GoblinKilled();
             Destroy(gameObject);
         }

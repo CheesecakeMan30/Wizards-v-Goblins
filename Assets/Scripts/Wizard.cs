@@ -13,7 +13,7 @@ public class Wizard : MonoBehaviour
     public float detectionRange = 8f;
     public float shootStartX = 4f;
 
-    public float attackDelay = 0.15f; // ✅ different per wizard
+    public float attackDelay = 0.15f; //  different per wizard
 
     float fireTimer = 0f;
 

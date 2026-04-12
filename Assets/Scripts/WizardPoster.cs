@@ -30,7 +30,7 @@ public class WizardPoster : MonoBehaviour
 
     void Update()
     {
-        // 🔥 Grey out when not affordable (ONLY when not dragging)
+        // Grey out when not affordable (ONLY when not dragging)
         if (!isDragging && sr != null)
         {
             if (GameManager.instance.money < cost)
@@ -39,7 +39,7 @@ public class WizardPoster : MonoBehaviour
                 sr.color = Color.white;
         }
 
-        // 🔥 Drag logic
+        // Drag logic
         if (isDragging && draggedInstance != null)
         {
             Vector3 mousePos = GetMouseWorldPos();
@@ -115,7 +115,7 @@ void OnMouseDown()
 
     Vector3 SnapToLaneGrid(Vector3 position)
     {
-        int column = Mathf.RoundToInt((position.x - leftEdge) / cellWidth);
+        int column = Mathf.FloorToInt((position.x - leftEdge) / cellWidth + 0.5f);
         column = Mathf.Clamp(column, 0, columns - 1);
 
         float x = leftEdge + column * cellWidth;

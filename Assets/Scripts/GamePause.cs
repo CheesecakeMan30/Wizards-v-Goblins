@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.UI; // 🔥 needed
+using UnityEngine.UI; 
 
 public class GamePause : MonoBehaviour
 {
@@ -12,7 +12,7 @@ public class GamePause : MonoBehaviour
 
     private bool isFastForward = false;
 
-    // 🔥 ADD THIS
+    //  ADD THIS
     public Image fastForwardButtonImage;
 
     public Color normalColor = Color.white;

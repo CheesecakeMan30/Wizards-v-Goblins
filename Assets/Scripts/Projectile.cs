@@ -9,8 +9,8 @@ public class Projectile : MonoBehaviour
     public float spinSpeed = 720f;
 
     public bool knockback = false;
-    public float knockbackForce = 3f;     // 🔥 changed (smaller, controlled)
-    public float knockbackDuration = 0.3f; // 🔥 NEW
+    public float knockbackForce = 3f;   
+    public float knockbackDuration = 0.3f; 
 
     void Update()
     {

@@ -10,7 +10,7 @@ public class WaveManager : MonoBehaviour
     int currentWave = 1;
     bool waitingForNextWave = false;
 
-    public int winWave = 25; // ✅ NEW
+    public int winWave = 26;
 
     public float[] laneY = new float[]
     {
@@ -54,8 +54,8 @@ public class WaveManager : MonoBehaviour
 
             GameManager.instance.ClearProjectiles();
 
-            // ✅ CHECK FOR WIN
-            if (currentWave > winWave)
+            // CHECK FOR WIN
+            if (currentWave == winWave)
             {
                 GameManager.instance.ShowWinScreen();
 
@@ -140,7 +140,7 @@ public class WaveManager : MonoBehaviour
         waitingForNextWave = false;
     }
 
-    // ✅ NEW: used by WIN SCREEN
+    // used by WIN SCREEN
     public void ContinueAfterWin()
     {
         waitingForNextWave = false;

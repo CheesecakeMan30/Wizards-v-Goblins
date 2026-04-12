@@ -959,7 +959,7 @@ MonoBehaviour:
   goblinsAlive: 0
   wave: 1
   gameOver: 0
-  money: 8000
+  money: 1000
 --- !u!4 &382469482
 Transform:
   m_ObjectHideFlags: 0
@@ -1426,7 +1426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
   spawner: {fileID: 1826299562}
-  winWave: 25
+  winWave: 26
   laneY:
   - 3
   - 1.75
