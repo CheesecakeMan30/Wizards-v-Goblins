@@ -50,6 +50,7 @@ MonoBehaviour:
   health: 5
   damage: 1
   attackRate: 1
+  laneY: 0
 --- !u!1 &8037319329589595898
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +230,7 @@ Animator:
   m_GameObject: {fileID: 8037319329589595898}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ad2a740992a1a4243aa105385939a3da, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -258,6 +259,7 @@ MonoBehaviour:
   health: 6
   damage: 3
   attackRate: 3
+  laneY: 0
 --- !u!1001 &5119843511912478493
 PrefabInstance:
   m_ObjectHideFlags: 0
