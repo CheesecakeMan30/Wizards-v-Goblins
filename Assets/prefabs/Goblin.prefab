@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1802028827127289747}
   - component: {fileID: 5041321333715975943}
   - component: {fileID: 1956211898747985725}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Goblin
   m_TagString: Goblin
   m_Icon: {fileID: 0}
@@ -219,7 +219,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5723675311510179763}
   - component: {fileID: 8151426200491720640}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Goblin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -356,9 +356,17 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 8039339409757040238, guid: b61f290e7cbf705458c3dba6b0c9a610, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8134430966629159076, guid: b61f290e7cbf705458c3dba6b0c9a610, type: 3}
       propertyPath: m_Name
       value: HealthBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 8134430966629159076, guid: b61f290e7cbf705458c3dba6b0c9a610, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8197214338503974947, guid: b61f290e7cbf705458c3dba6b0c9a610, type: 3}
       propertyPath: m_Type
@@ -375,6 +383,10 @@ PrefabInstance:
     - target: {fileID: 8197214338503974947, guid: b61f290e7cbf705458c3dba6b0c9a610, type: 3}
       propertyPath: m_RaycastTarget
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8447322686233134852, guid: b61f290e7cbf705458c3dba6b0c9a610, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8493625270373814401, guid: b61f290e7cbf705458c3dba6b0c9a610, type: 3}
       propertyPath: m_AnchorMax.y

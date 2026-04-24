@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1344378039983272620}
   - component: {fileID: 1502286130761716742}
   - component: {fileID: 6625551427798007031}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WindWizard
   m_TagString: Wizard
   m_Icon: {fileID: 0}
@@ -234,6 +234,10 @@ PrefabInstance:
     - target: {fileID: 6549479943851149205, guid: 35b08cfa17922d145930e70018764da4, type: 3}
       propertyPath: m_Name
       value: DetectionArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 6549479943851149205, guid: 35b08cfa17922d145930e70018764da4, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4623402847381395740, guid: 35b08cfa17922d145930e70018764da4, type: 3}

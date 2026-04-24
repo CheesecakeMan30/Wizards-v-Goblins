@@ -153,36 +153,48 @@ public class WaveManager : MonoBehaviour
             spawner.goblinTypes[0].weight = 90;
             spawner.goblinTypes[1].weight = 10;
             spawner.goblinTypes[2].weight = 0;
+            spawner.goblinTypes[3].weight = 0;
+            spawner.goblinTypes[4].weight = 0;
         }
         else if (currentWave < 10)
         {
             spawner.goblinTypes[0].weight = 70;
             spawner.goblinTypes[1].weight = 30;
             spawner.goblinTypes[2].weight = 0;
+            spawner.goblinTypes[3].weight = 0;
+            spawner.goblinTypes[4].weight = 0;
         }
         else if (currentWave < 15)
         {
             spawner.goblinTypes[0].weight = 40;
             spawner.goblinTypes[1].weight = 40;
             spawner.goblinTypes[2].weight = 20;
+            spawner.goblinTypes[3].weight = 0;
+            spawner.goblinTypes[4].weight = 0;
         }
         else if (currentWave < 20)
         {
-            spawner.goblinTypes[0].weight = 15;
-            spawner.goblinTypes[1].weight = 40;
-            spawner.goblinTypes[2].weight = 55;
+            spawner.goblinTypes[0].weight = 10;
+            spawner.goblinTypes[1].weight = 30;
+            spawner.goblinTypes[2].weight = 45;
+            spawner.goblinTypes[3].weight = 10;
+            spawner.goblinTypes[4].weight = 5;
         }
         else if (currentWave < 25)
         {
             spawner.goblinTypes[0].weight = 0;
-            spawner.goblinTypes[1].weight = 30;
-            spawner.goblinTypes[2].weight = 70;
+            spawner.goblinTypes[1].weight = 15;
+            spawner.goblinTypes[2].weight = 60;
+            spawner.goblinTypes[3].weight = 15;
+            spawner.goblinTypes[4].weight = 10;
         }
         else
         {
             spawner.goblinTypes[0].weight = 0;
-            spawner.goblinTypes[1].weight = 15;
-            spawner.goblinTypes[2].weight = 85;
+            spawner.goblinTypes[1].weight = 5;
+            spawner.goblinTypes[2].weight = 50;
+            spawner.goblinTypes[3].weight = 25;
+            spawner.goblinTypes[4].weight = 20;
         }
     }
 }
