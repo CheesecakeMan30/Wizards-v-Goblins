@@ -140,12 +140,12 @@ TextureImporter:
       name: red_wizard_0
       rect:
         serializedVersion: 2
-        x: 43
-        y: 1094
-        width: 231
-        height: 388
+        x: 44
+        y: 1095
+        width: 229
+        height: 386
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -162,12 +162,12 @@ TextureImporter:
       name: red_wizard_1
       rect:
         serializedVersion: 2
-        x: 348
-        y: 1095
-        width: 232
-        height: 386
+        x: 349
+        y: 1096
+        width: 230
+        height: 384
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -184,12 +184,12 @@ TextureImporter:
       name: red_wizard_2
       rect:
         serializedVersion: 2
-        x: 682
-        y: 1094
-        width: 232
-        height: 388
+        x: 683
+        y: 1095
+        width: 230
+        height: 386
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -206,12 +206,12 @@ TextureImporter:
       name: red_wizard_3
       rect:
         serializedVersion: 2
-        x: 39
-        y: 640
-        width: 259
-        height: 387
+        x: 40
+        y: 641
+        width: 257
+        height: 385
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -228,12 +228,12 @@ TextureImporter:
       name: red_wizard_4
       rect:
         serializedVersion: 2
-        x: 338
-        y: 641
-        width: 315
-        height: 387
+        x: 339
+        y: 642
+        width: 313
+        height: 385
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -250,12 +250,12 @@ TextureImporter:
       name: red_wizard_5
       rect:
         serializedVersion: 2
-        x: 665
-        y: 642
-        width: 318
-        height: 387
+        x: 666
+        y: 643
+        width: 316
+        height: 385
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -272,12 +272,12 @@ TextureImporter:
       name: red_wizard_6
       rect:
         serializedVersion: 2
-        x: 40
-        y: 202
-        width: 281
-        height: 384
+        x: 41
+        y: 203
+        width: 279
+        height: 382
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -294,12 +294,12 @@ TextureImporter:
       name: red_wizard_7
       rect:
         serializedVersion: 2
-        x: 342
-        y: 202
-        width: 314
-        height: 383
+        x: 343
+        y: 203
+        width: 312
+        height: 381
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -316,12 +316,12 @@ TextureImporter:
       name: red_wizard_8
       rect:
         serializedVersion: 2
-        x: 673
-        y: 201
-        width: 317
-        height: 384
+        x: 674
+        y: 202
+        width: 315
+        height: 382
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -338,7 +338,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 2c47caa7f49f947878293b610d3893c1
     internalID: 0
     vertices: []
     indices: 
@@ -346,7 +346,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       red_wizard_0: -5208113108610026380
       red_wizard_1: 5330465299007446374

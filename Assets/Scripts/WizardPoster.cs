@@ -60,7 +60,6 @@ public class WizardPoster : MonoBehaviour
 
 void OnMouseDown()
 {
-    
     if (!GameManager.instance.SpendMoney(cost))
         return;
 
