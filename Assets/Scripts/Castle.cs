@@ -25,7 +25,7 @@ public class Castle : MonoBehaviour
         Debug.Log("Game Over");
         GameManager.instance.gameOver = true;
         SceneManager.LoadScene("End Screen");
-        Time.timeScale = 0;
+        GamePause.instance.PauseGame(false);
     }
     }
 }

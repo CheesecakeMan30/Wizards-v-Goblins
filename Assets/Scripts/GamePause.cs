@@ -1,5 +1,6 @@
 using UnityEngine;
-using UnityEngine.UI; 
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GamePause : MonoBehaviour
 {
@@ -12,15 +13,32 @@ public class GamePause : MonoBehaviour
 
     private bool isFastForward = false;
 
-    //  ADD THIS
     public Image fastForwardButtonImage;
 
     public Color normalColor = Color.white;
-    public Color fastForwardColor = new Color(0.7f, 0.7f, 0.7f); // darker grey
+    public Color fastForwardColor = new Color(0.7f, 0.7f, 0.7f);
+
+    public GameObject pauseMenu;
 
     void Awake()
     {
         instance = this;
+    }
+
+    void ApplyTimeScale()
+    {
+        if (isPaused)
+        {
+            Time.timeScale = 0f;
+            return;
+        }
+
+        Time.timeScale = isFastForward ? fastSpeed : normalSpeed;
+
+        if (fastForwardButtonImage != null)
+        {
+            fastForwardButtonImage.color = isFastForward ? fastForwardColor : normalColor;
+        }
     }
 
     public void TogglePause()
@@ -28,40 +46,49 @@ public class GamePause : MonoBehaviour
         if (isPaused)
             ResumeGame();
         else
-            PauseGame();
+            PauseGame(true);
     }
 
-    public void PauseGame()
+    public void PauseGame(bool showMenu = true)
     {
-        Time.timeScale = 0f;
         isPaused = true;
+        ApplyTimeScale();
+
+        if (pauseMenu != null)
+            pauseMenu.SetActive(showMenu);
     }
 
     public void ResumeGame()
     {
-        Time.timeScale = isFastForward ? fastSpeed : normalSpeed;
         isPaused = false;
+        ApplyTimeScale();
+
+        if (pauseMenu != null)
+            pauseMenu.SetActive(false);
     }
 
     public void ToggleFastForward()
     {
         if (isPaused) return;
 
-        if (isFastForward)
-        {
-            Time.timeScale = normalSpeed;
-            isFastForward = false;
+        isFastForward = !isFastForward;
+        ApplyTimeScale();
+    }
 
-            // set normal color
-            fastForwardButtonImage.color = normalColor;
-        }
-        else
-        {
-            Time.timeScale = fastSpeed;
-            isFastForward = true;
+    public void RestartGame()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
-            // set darker color
-            fastForwardButtonImage.color = fastForwardColor;
-        }
+    public void QuitGame()
+    {
+        Debug.Log("Quit Game");
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 }

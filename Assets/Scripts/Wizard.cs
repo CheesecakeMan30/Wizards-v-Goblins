@@ -13,12 +13,14 @@ public class Wizard : MonoBehaviour
     public float detectionRange = 8f;
     public float shootStartX = 4f;
 
-    public float attackDelay = 0.15f; //  different per wizard
+    public float attackDelay = 0.15f;
+
+    public AudioClip shootSound;
 
     float fireTimer = 0f;
 
     Animator anim;
-    bool isAttacking = false; // prevents spam
+    bool isAttacking = false;
 
     void Start()
     {
@@ -69,17 +71,17 @@ public class Wizard : MonoBehaviour
         if (anim != null)
             anim.SetTrigger("Shoot");
 
-        // OPTION A (delay-based)
         CancelInvoke(nameof(SpawnProjectile));
         Invoke(nameof(SpawnProjectile), attackDelay);
 
-        // reset attack lock (match animation length)
         Invoke(nameof(ResetAttack), 0.5f);
     }
 
     void SpawnProjectile()
     {
         Instantiate(projectilePrefab, transform.position + Vector3.right * 0.5f, Quaternion.identity);
+
+        AudioManager.instance.PlaySFX(shootSound);
     }
 
     void ResetAttack()
@@ -99,6 +101,9 @@ public class Wizard : MonoBehaviour
 
     void OnMouseDown()
     {
-        GameManager.instance.SelectWizard(gameObject);
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.SelectWizard(gameObject);
+        }
     }
 }

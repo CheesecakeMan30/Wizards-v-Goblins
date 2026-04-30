@@ -177,9 +177,9 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 887043713360047097}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0bf7e8a90bc0d794aa9246639b93b373, type: 2}
+  m_Controller: {fileID: 9100000, guid: 01312af88a5e62348b9d81c2e476ff0a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -208,6 +208,8 @@ MonoBehaviour:
   health: 30
   damage: 20
   attackRate: 0.6
+  spawnSound: {fileID: 8300000, guid: c937a5a871b82944380d3d187f8b729c, type: 3}
+  deathSound: {fileID: 8300000, guid: 929a621dbd7f41f4cbc38dc431e1f356, type: 3}
   laneY: 0
 --- !u!1 &9036502924244701109
 GameObject:
@@ -259,6 +261,8 @@ MonoBehaviour:
   health: 5
   damage: 1
   attackRate: 1
+  spawnSound: {fileID: 0}
+  deathSound: {fileID: 0}
   laneY: 0
 --- !u!1001 &981531714887097061
 PrefabInstance:

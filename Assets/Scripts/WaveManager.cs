@@ -20,6 +20,10 @@ public class WaveManager : MonoBehaviour
     public float minLaneSpacing = 1.2f;
     public float spawnX = 10f;
 
+    // NEW
+    public GameObject startWaveText;
+    public float introDelay = 3f;
+
     void Awake()
     {
         instance = this;
@@ -27,6 +31,19 @@ public class WaveManager : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(StartSequence());
+    }
+
+    IEnumerator StartSequence()
+    {
+        if (startWaveText != null)
+            startWaveText.SetActive(true);
+
+        yield return new WaitForSeconds(introDelay);
+
+        if (startWaveText != null)
+            startWaveText.SetActive(false);
+
         StartCoroutine(WaveLoop());
     }
 
@@ -54,7 +71,6 @@ public class WaveManager : MonoBehaviour
 
             GameManager.instance.ClearProjectiles();
 
-            // CHECK FOR WIN
             if (currentWave == winWave)
             {
                 GameManager.instance.ShowWinScreen();
@@ -62,11 +78,10 @@ public class WaveManager : MonoBehaviour
                 waitingForNextWave = true;
                 yield return new WaitUntil(() => waitingForNextWave == false);
 
-                continue; // go to next loop (wave 26+)
+                continue;
             }
 
-            // NORMAL WAVE FLOW
-            GamePause.instance.PauseGame();
+            GamePause.instance.PauseGame(false);
             GameManager.instance.waveCompleteUI.SetActive(true);
 
             waitingForNextWave = true;
@@ -126,7 +141,6 @@ public class WaveManager : MonoBehaviour
 
         GameObject goblin = Instantiate(goblinPrefab, spawnPos, Quaternion.identity);
 
-        // SET LANE
         goblin.GetComponent<GoblinMovement>().laneY = laneYPos;
 
         GameManager.instance.GoblinSpawned();
@@ -140,7 +154,6 @@ public class WaveManager : MonoBehaviour
         waitingForNextWave = false;
     }
 
-    // used by WIN SCREEN
     public void ContinueAfterWin()
     {
         waitingForNextWave = false;
@@ -174,27 +187,27 @@ public class WaveManager : MonoBehaviour
         }
         else if (currentWave < 20)
         {
-            spawner.goblinTypes[0].weight = 10;
-            spawner.goblinTypes[1].weight = 30;
-            spawner.goblinTypes[2].weight = 45;
+            spawner.goblinTypes[0].weight = 15;
+            spawner.goblinTypes[1].weight = 40;
+            spawner.goblinTypes[2].weight = 35;
             spawner.goblinTypes[3].weight = 10;
-            spawner.goblinTypes[4].weight = 5;
+            spawner.goblinTypes[4].weight = 0;
         }
         else if (currentWave < 25)
         {
             spawner.goblinTypes[0].weight = 0;
-            spawner.goblinTypes[1].weight = 15;
-            spawner.goblinTypes[2].weight = 60;
-            spawner.goblinTypes[3].weight = 15;
-            spawner.goblinTypes[4].weight = 10;
+            spawner.goblinTypes[1].weight = 25;
+            spawner.goblinTypes[2].weight = 35;
+            spawner.goblinTypes[3].weight = 25;
+            spawner.goblinTypes[4].weight = 15;
         }
         else
         {
             spawner.goblinTypes[0].weight = 0;
-            spawner.goblinTypes[1].weight = 5;
-            spawner.goblinTypes[2].weight = 50;
-            spawner.goblinTypes[3].weight = 25;
-            spawner.goblinTypes[4].weight = 20;
+            spawner.goblinTypes[1].weight = 10;
+            spawner.goblinTypes[2].weight = 30;
+            spawner.goblinTypes[3].weight = 30;
+            spawner.goblinTypes[4].weight = 30;
         }
     }
 }

@@ -183,6 +183,7 @@ MonoBehaviour:
   detectionRange: 20
   shootStartX: 8
   attackDelay: 0.15
+  shootSound: {fileID: 8300000, guid: 35714ccdf6a34424a8241f6b10b01db2, type: 3}
 --- !u!1001 &5389650090622005361
 PrefabInstance:
   m_ObjectHideFlags: 0

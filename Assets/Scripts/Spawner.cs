@@ -23,7 +23,13 @@ public class Spawner : MonoBehaviour
         int lane = Random.Range(0, laneY.Length);
         Vector2 spawnPos = new Vector2(10f, laneY[lane]);
 
-        Instantiate(chosenGoblin, spawnPos, Quaternion.identity);
+        GameObject goblin = Instantiate(chosenGoblin, spawnPos, Quaternion.identity);
+
+        var g = goblin.GetComponent<GoblinMovement>();
+        if (g != null && g.spawnSound != null)
+        {
+            AudioManager.instance.PlaySFX(g.spawnSound);
+        }
 
         GameManager.instance.GoblinSpawned();
     }

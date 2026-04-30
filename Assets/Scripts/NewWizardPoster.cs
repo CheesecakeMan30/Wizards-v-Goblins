@@ -79,24 +79,28 @@ public class NewWizardPoster : MonoBehaviour
 
     public void BuyWizard()
     {
-        if (GameManager.instance.money < cost)
-            return;
+    if (GameManager.instance.money < cost)
+        return;
 
-        GameManager.instance.SpendMoney(cost);
+    GameManager.instance.SpendMoney(cost);
 
-        draggedInstance = Instantiate(wizardPrefab, GetMouseWorldPos(), Quaternion.identity);
+    draggedInstance = Instantiate(wizardPrefab, GetMouseWorldPos(), Quaternion.identity);
 
-        draggedSprite = draggedInstance.GetComponent<SpriteRenderer>();
-        draggedCollider = draggedInstance.GetComponent<Collider2D>();
+    Wizard wizardScript = draggedInstance.GetComponent<Wizard>();
+    if (wizardScript != null)
+        wizardScript.cost = cost;
 
-        if (draggedSprite != null)
-            draggedSprite.color = new Color(1f,1f,1f,0.5f);
+    draggedSprite = draggedInstance.GetComponent<SpriteRenderer>();
+    draggedCollider = draggedInstance.GetComponent<Collider2D>();
 
-        if (draggedCollider != null)
-            draggedCollider.enabled = false;
+    if (draggedSprite != null)
+        draggedSprite.color = new Color(1f,1f,1f,0.5f);
 
-        waitingForRelease = true;
-        isDragging = false;
+    if (draggedCollider != null)
+        draggedCollider.enabled = false;
+
+    waitingForRelease = true;
+    isDragging = false;
     }
 
     void PlaceWizard()

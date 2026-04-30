@@ -10,9 +10,9 @@ public class GameManager : MonoBehaviour
     public GameObject waveCompleteUI;
     public GameObject winScreen;
 
-    public GameObject sellButton; // NEW
+    public GameObject sellButton;
 
-    private GameObject selectedWizard; //  NEW
+    private GameObject selectedWizard;
 
     public int goblinsKilled = 0;
     public int goblinsAlive = 0;
@@ -32,6 +32,40 @@ public class GameManager : MonoBehaviour
         if (sellButton != null)
             sellButton.SetActive(false);
     }
+
+   
+ void Update()
+{
+    if (UnityEngine.EventSystems.EventSystem.current != null && UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+        return;
+    if (Input.GetMouseButtonDown(0))
+    {
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        int layerMask = ~LayerMask.GetMask("Goblin");
+        Collider2D[] hits = Physics2D.OverlapPointAll(mousePos, layerMask);
+
+        GameObject clickedWizard = null;
+
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("Wizard"))
+            {
+                clickedWizard = hit.gameObject;
+                break;
+            }
+        }
+
+        if (clickedWizard != null && Time.timeScale == 0f)
+        {
+            SelectWizard(clickedWizard);
+        }
+        else
+        {
+            DeselectWizard();
+        }
+    }
+}
 
     public void GoblinSpawned()
     {
@@ -91,6 +125,14 @@ public class GameManager : MonoBehaviour
             sellButton.SetActive(true);
     }
 
+    public void DeselectWizard()
+    {
+        selectedWizard = null;
+
+        if (sellButton != null)
+            sellButton.SetActive(false);
+    }
+
     // SELL WIZARD
     public void SellSelectedWizard()
     {
@@ -106,10 +148,7 @@ public class GameManager : MonoBehaviour
         }
 
         Destroy(selectedWizard);
-        selectedWizard = null;
-
-        if (sellButton != null)
-            sellButton.SetActive(false);
+        DeselectWizard(); // 🔥 FIXED
     }
 
     // WIN SCREEN
@@ -127,7 +166,8 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        Time.timeScale = 1f;
+        GamePause.instance.ResumeGame();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

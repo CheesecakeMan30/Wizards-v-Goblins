@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 61a13d4c7d57146439e05097c8899d3d
+guid: d16c3202d66efcf4aac19517941b6064
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7906661319868753324
-    second: wantedposter3_0
+      213: 4259226528177559131
+    second: IMG_2980_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: wantedposter3_0
+      name: IMG_2980_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 7
-        width: 700
-        height: 1092
+        x: 72
+        y: 43
+        width: 113
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 45ad6edbb65e54290800000000000000
-      internalID: -7906661319868753324
+      spriteID: b5691f506ffcb1b30800000000000000
+      internalID: 4259226528177559131
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      wantedposter3_0: -7906661319868753324
+      IMG_2980_0: 4259226528177559131
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

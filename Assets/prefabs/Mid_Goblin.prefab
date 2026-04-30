@@ -50,6 +50,8 @@ MonoBehaviour:
   health: 5
   damage: 1
   attackRate: 1
+  spawnSound: {fileID: 0}
+  deathSound: {fileID: 0}
   laneY: 0
 --- !u!1 &8037319329589595898
 GameObject:
@@ -259,6 +261,8 @@ MonoBehaviour:
   health: 6
   damage: 3
   attackRate: 3
+  spawnSound: {fileID: 0}
+  deathSound: {fileID: 8300000, guid: 7b633b417ede5384d9b2a2fffbca5606, type: 3}
   laneY: 0
 --- !u!1001 &5119843511912478493
 PrefabInstance:

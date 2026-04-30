@@ -133,7 +133,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.31, y: 3.88}
+    oldSize: {x: 2.29, y: 3.86}
     newSize: {x: 0.57, y: 1.01}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -149,9 +149,9 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2579992197011781257}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 68ae257a37486fe4da9432adc52e837f, type: 2}
+  m_Controller: {fileID: 9100000, guid: 55fa382b411bc8e49a3d677649cb3ee3, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -183,6 +183,7 @@ MonoBehaviour:
   detectionRange: 15
   shootStartX: 7
   attackDelay: 0.15
+  shootSound: {fileID: 8300000, guid: ea78bb8e8e6f048499e97961428059b1, type: 3}
 --- !u!1001 &2613711675341066675
 PrefabInstance:
   m_ObjectHideFlags: 0
