@@ -20,6 +20,8 @@ public class GamePause : MonoBehaviour
 
     public GameObject pauseMenu;
 
+    public bool isGameOver = false;
+
     void Awake()
     {
         instance = this;
@@ -28,12 +30,9 @@ public class GamePause : MonoBehaviour
     void ApplyTimeScale()
     {
         if (isPaused)
-        {
             Time.timeScale = 0f;
-            return;
-        }
-
-        Time.timeScale = isFastForward ? fastSpeed : normalSpeed;
+        else
+            Time.timeScale = isFastForward ? fastSpeed : normalSpeed;
 
         if (fastForwardButtonImage != null)
         {
@@ -43,6 +42,8 @@ public class GamePause : MonoBehaviour
 
     public void TogglePause()
     {
+        if (isGameOver) return;
+
         if (isPaused)
             ResumeGame();
         else
@@ -54,8 +55,8 @@ public class GamePause : MonoBehaviour
         isPaused = true;
         ApplyTimeScale();
 
-        if (pauseMenu != null)
-            pauseMenu.SetActive(showMenu);
+        if (pauseMenu != null && showMenu && !isGameOver)
+            pauseMenu.SetActive(true);
     }
 
     public void ResumeGame()
@@ -69,7 +70,7 @@ public class GamePause : MonoBehaviour
 
     public void ToggleFastForward()
     {
-        if (isPaused) return;
+        if (isPaused || isGameOver) return;
 
         isFastForward = !isFastForward;
         ApplyTimeScale();
@@ -78,6 +79,10 @@ public class GamePause : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1f;
+        isPaused = false;
+        isFastForward = false;
+        isGameOver = false;
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 

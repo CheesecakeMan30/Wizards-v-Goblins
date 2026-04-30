@@ -18,7 +18,10 @@ public class GameManager : MonoBehaviour
     public int goblinsAlive = 0;
     public int wave = 1;
     public bool gameOver = false;
-    public int money = 2750;
+    public int money = 1250;
+
+    public GameObject shopUI;
+    public GameObject muteButton;
 
     void Awake()
     {
@@ -33,39 +36,40 @@ public class GameManager : MonoBehaviour
             sellButton.SetActive(false);
     }
 
-   
- void Update()
-{
-    if (UnityEngine.EventSystems.EventSystem.current != null && UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
-        return;
-    if (Input.GetMouseButtonDown(0))
+    void Update()
     {
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (UnityEngine.EventSystems.EventSystem.current != null &&
+            UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+            return;
 
-        int layerMask = ~LayerMask.GetMask("Goblin");
-        Collider2D[] hits = Physics2D.OverlapPointAll(mousePos, layerMask);
-
-        GameObject clickedWizard = null;
-
-        foreach (var hit in hits)
+        if (Input.GetMouseButtonDown(0))
         {
-            if (hit.CompareTag("Wizard"))
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            int layerMask = ~LayerMask.GetMask("Goblin");
+            Collider2D[] hits = Physics2D.OverlapPointAll(mousePos, layerMask);
+
+            GameObject clickedWizard = null;
+
+            foreach (var hit in hits)
             {
-                clickedWizard = hit.gameObject;
-                break;
+                if (hit.CompareTag("Wizard"))
+                {
+                    clickedWizard = hit.gameObject;
+                    break;
+                }
+            }
+
+            if (clickedWizard != null && Time.timeScale == 0f)
+            {
+                SelectWizard(clickedWizard);
+            }
+            else
+            {
+                DeselectWizard();
             }
         }
-
-        if (clickedWizard != null && Time.timeScale == 0f)
-        {
-            SelectWizard(clickedWizard);
-        }
-        else
-        {
-            DeselectWizard();
-        }
     }
-}
 
     public void GoblinSpawned()
     {
@@ -113,10 +117,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // SELECT WIZARD
     public void SelectWizard(GameObject wizard)
     {
-        // only allow between rounds
         if (Time.timeScale > 0f) return;
 
         selectedWizard = wizard;
@@ -133,7 +135,6 @@ public class GameManager : MonoBehaviour
             sellButton.SetActive(false);
     }
 
-    // SELL WIZARD
     public void SellSelectedWizard()
     {
         if (selectedWizard == null) return;
@@ -148,26 +149,50 @@ public class GameManager : MonoBehaviour
         }
 
         Destroy(selectedWizard);
-        DeselectWizard(); // 🔥 FIXED
+        DeselectWizard();
     }
 
-    // WIN SCREEN
     public void ShowWinScreen()
     {
-        GamePause.instance.PauseGame();
+        gameOver = true;
+
+        GamePause.instance.isGameOver = true;
+        GamePause.instance.PauseGame(false);
+
         winScreen.SetActive(true);
+
+        if (shopUI != null)
+            shopUI.SetActive(false);
+
+        if (muteButton != null)
+            muteButton.SetActive(false);
+
+        if (waveCompleteUI != null)
+            waveCompleteUI.SetActive(false);
     }
 
     public void ContinueAfterWin()
     {
         winScreen.SetActive(false);
+
+    if (shopUI != null)
+        shopUI.SetActive(true);
+
+    if (muteButton != null)
+        muteButton.SetActive(true);
+
+    if (waveCompleteUI != null)
+        waveCompleteUI.SetActive(false);
+
+        gameOver = false;
+        GamePause.instance.isGameOver = false;
+
         GamePause.instance.ResumeGame();
     }
 
     public void RestartGame()
     {
         GamePause.instance.ResumeGame();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

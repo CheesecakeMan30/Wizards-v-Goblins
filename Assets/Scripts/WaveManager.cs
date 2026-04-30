@@ -20,7 +20,6 @@ public class WaveManager : MonoBehaviour
     public float minLaneSpacing = 1.2f;
     public float spawnX = 10f;
 
-    // NEW
     public GameObject startWaveText;
     public float introDelay = 3f;
 
@@ -33,6 +32,7 @@ public class WaveManager : MonoBehaviour
     {
         StartCoroutine(StartSequence());
     }
+
 
     IEnumerator StartSequence()
     {
